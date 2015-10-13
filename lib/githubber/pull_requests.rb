@@ -6,12 +6,12 @@ module Githubber
     def initialize(auth_token)
       @auth = {
           "Authorization" => "token #{auth_token}",
-          "User_Agent"    => "HTTParty"
+          "User-Agent"    => "HTTParty"
       }
     end
 
     def get_pull_request(owner, repo, number)
-      PullRequests.get("/repos/:#{owner}/:#{repo}/pulls/:#{number}", :headers => @auth)
+      PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}", :headers => @auth)
     end
 
     def create_pull_request(owner, repo)
