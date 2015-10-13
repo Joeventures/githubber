@@ -14,8 +14,11 @@ module Githubber
       PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}", :headers => @auth)
     end
 
-    def create_pull_request(owner, repo)
-      PullRequests.post("/repos/#{owner}/#{repo}/pulls", :headers => @auth, :body => options.to_json)
+    def create_pull_request(owner, repo, title, head, base, body = "")
+      PullRequests.post("/repos/#{owner}/#{repo}/pulls",
+                        :headers => @auth,
+                        :body    => {:title => title, :head => head, :base => base, :body => body}.to_json
+                            )
     end
 
     def pull_request_merge(owner, repo, number)
