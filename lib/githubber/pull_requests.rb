@@ -11,15 +11,15 @@ module Githubber
     end
 
     def get_pull_request(owner, repo, number)
-      PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}", headers => @auth)
+      PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}", :headers => @auth)
     end
 
     def create_pull_request(owner, repo)
-      PullRequests.post("/repos/#{owner}/#{repo}/pulls", headers => @auth, body => options.to_json)
+      PullRequests.post("/repos/#{owner}/#{repo}/pulls", :headers => @auth, :body => options.to_json)
     end
 
     def pull_request_merge(owner, repo, number)
-      PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}/merge", headers => @auth)
+      PullRequests.get("/repos/#{owner}/#{repo}/pulls/#{number}/merge", :headers => @auth)
     end
 
 
