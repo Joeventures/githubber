@@ -1,11 +1,8 @@
 require "httparty"
 require "pry"
 
-<<<<<<< HEAD
-require "githubber/version"
 require "githubber/issues"
-=======
-
+require "githubber/homework"
 require "githubber/version"
 require "githubber/pull_requests"
 
