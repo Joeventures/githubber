@@ -22,16 +22,19 @@ module Githubber
     def get_teams( org )
       teams = Homework.get("/orgs/#{org}/teams", :headers => @auth)
       teams.each do |team|
-        puts team['name']
+        puts team['id']
       end
     end
 
     #get the members of a team
     def list_team_members(team_id)
       members = Homework.get("/teams/#{team_id}/members", :headers => @auth)
+      member_list = []
       members.each do |member|
-        puts member['login']
+        binding.pry
+        member_list.push(member['login'])
       end
+      member_list
     end
 
 
@@ -41,8 +44,19 @@ module Githubber
       #binding.pry
       gister['files'].each do |file|
         file.each do |x|
-          puts x['content']
+          x['content']
         end
+      end
+    end
+
+    def assign_homework(org, team, repo, gist_id)
+      homework = get_gist_contents(gist_id)
+
+      members = list_team_members(team)
+      members.each do |member|
+        Homework.post("/repos/#{org}/#{repo}/issues",
+                      :headers => @auth,
+                      :body => {:title => 'Your issue', :body => homework, :assignee => member}.to_json)
       end
     end
 
